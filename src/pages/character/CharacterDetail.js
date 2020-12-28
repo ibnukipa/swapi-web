@@ -1,7 +1,7 @@
 // @flow
 
 import React, { useState } from 'react';
-import { Breadcrumb, Container, Header } from 'semantic-ui-react';
+import { Breadcrumb, Container, Grid, Header, List, Segment } from 'semantic-ui-react';
 import {  useSelector } from 'react-redux';
 import { dbIdSelector } from '../../storage/slicers/database';
 import { useParams, useHistory } from 'react-router-dom';
@@ -20,23 +20,109 @@ const CharacterDetail = () => {
   return (
     <Container>
       <Breadcrumb icon='right angle' sections={breadcrumbs} />
-      <Header as='h1'>
+      <Header as='h1' attached={'top'}>
         <Header.Content>{character.name}</Header.Content>
       </Header>
-      <Header sub>Birth Year</Header>
-      <span>{character.birthYear}</span>
-      <Header sub>Height</Header>
-      <span>{character.height}</span>
-      <Header sub>Mass</Header>
-      <span>{character.mass}</span>
-      <Header sub>Hair Color</Header>
-      <span>{character.hairColor}</span>
-      <Header sub>Skil Color</Header>
-      <span>{character.skinColor}</span>
-      <Header sub>Eye Color</Header>
-      <span>{character.eyeColor}</span>
-      <Header sub>Gender</Header>
-      <span>{character.gender}</span>
+      <Segment attached>
+        <Grid columns={3} divided>
+          <Grid.Row >
+            <Grid.Column>
+              <List selection verticalAlign='middle'>
+                <List.Item>
+                  <List.Content>
+                    <List.Description className='head'>Birth Year</List.Description>
+                    <List.Header>{character.birthYear}</List.Header>
+                  </List.Content>
+                </List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column>
+              <List selection verticalAlign='middle'>
+                <List.Item>
+                  <List.Content>
+                    <List.Description className='head'>Height</List.Description>
+                    <List.Header>{character.height}</List.Header>
+                  </List.Content>
+                </List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column>
+              <List selection verticalAlign='middle'>
+                <List.Item>
+                  <List.Content>
+                    <List.Description className='head'>Mass</List.Description>
+                    <List.Header>{character.mass}</List.Header>
+                  </List.Content>
+                </List.Item>
+              </List>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row >
+            <Grid.Column>
+              <List selection verticalAlign='middle'>
+                <List.Item>
+                  <List.Content>
+                    <List.Description className='head'>Hair Color</List.Description>
+                    <List.Header>{character.hairColor}</List.Header>
+                  </List.Content>
+                </List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column>
+              <List selection verticalAlign='middle'>
+                <List.Item>
+                  <List.Content>
+                    <List.Description className='head'>Skin Color</List.Description>
+                    <List.Header>{character.skinColor}</List.Header>
+                  </List.Content>
+                </List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column>
+              <List selection verticalAlign='middle'>
+                <List.Item>
+                  <List.Content>
+                    <List.Description className='head'>Eye Color</List.Description>
+                    <List.Header>{character.eyeColor}</List.Header>
+                  </List.Content>
+                </List.Item>
+              </List>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row >
+            <Grid.Column>
+              <List selection verticalAlign='middle'>
+                <List.Item>
+                  <List.Content>
+                    <List.Description className='head'>Movies</List.Description>
+                    <List.Header>{character.films?.length}</List.Header>
+                  </List.Content>
+                </List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column>
+              <List selection verticalAlign='middle'>
+                <List.Item>
+                  <List.Content>
+                    <List.Description className='head'>Vehicles</List.Description>
+                    <List.Header>{character.vehicles?.length}</List.Header>
+                  </List.Content>
+                </List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column>
+              <List selection verticalAlign='middle'>
+                <List.Item>
+                  <List.Content>
+                    <List.Description className='head'>Starships</List.Description>
+                    <List.Header>{character.starships?.length}</List.Header>
+                  </List.Content>
+                </List.Item>
+              </List>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
     </Container>
   );
 };
