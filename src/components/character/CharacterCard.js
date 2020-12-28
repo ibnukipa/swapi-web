@@ -1,24 +1,27 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { characterDetailSelector } from '../../storage/slicers/characters';
-import { Button, Card, Placeholder } from 'semantic-ui-react';
+import { Button, Card, Header, Placeholder } from 'semantic-ui-react';
 
 export const CharacterCardPlaceholder = () => (
   <Card>
     <Card.Content>
       <Placeholder>
         <Placeholder.Header>
-          <Placeholder.Line length='very short' />
-          <Placeholder.Line length='medium' />
+          <Placeholder.Line />
         </Placeholder.Header>
         <Placeholder.Paragraph>
           <Placeholder.Line/>
+          <Placeholder.Line length='very short'/>
           <Placeholder.Line/>
+          <Placeholder.Line length='very short'/>
+          <Placeholder.Line/>
+          <Placeholder.Line length='very short'/>
         </Placeholder.Paragraph>
       </Placeholder>
     </Card.Content>
     <Card.Content extra>
-      <Button disabled primary>See More</Button>
+      <Button disabled primary fluid>See More</Button>
     </Card.Content>
   </Card>
 )
@@ -29,13 +32,17 @@ const CharacterCard = ({ id }) => {
     <Card key={`character-${id}`}>
       <Card.Content>
         <Card.Header>{character.name}</Card.Header>
-        <Card.Meta>Friends of Elliot</Card.Meta>
+      </Card.Content>
+      <Card.Content>
         <Card.Description>
-          Steve wants to add you to the group <strong>best friends</strong>
+          <Header sub>Birth Year</Header>
+          <span>{character.birthYear}</span>
+          <Header sub>Eye Color</Header>
+          <span>{character.eyeColor}</span>
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Button primary>See More</Button>
+        <Button primary fluid>See More</Button>
       </Card.Content>
     </Card>
   );
