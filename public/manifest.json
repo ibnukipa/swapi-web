@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "swapi",
+  "name": "swapi - All the Star Wars data you've ever wanted",
   "icons": [
     {
       "src": "favicon.ico",
