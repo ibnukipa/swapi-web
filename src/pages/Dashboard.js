@@ -1,85 +1,53 @@
 // @flow
 
-import React from 'react';
-import { Button, Card, Container, Image } from 'semantic-ui-react';
+import React, { useEffect }  from 'react';
+import { Card, Container, Pagination, Segment } from 'semantic-ui-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { characterListSelector, characterListStateSelector } from '../storage/slicers/characters';
+import { listFetch } from '../storage/slicers/characters';
+import CharacterCard, { CharacterCardPlaceholder } from '../components/character/CharacterCard';
 
-const Dashboard = () => (
-  <Container className='container' fluid>
-    <Card.Group>
-      <Card>
-        <Card.Content>
-          <Image
-            floated='right'
-            size='mini'
-            src='/images/avatar/large/steve.jpg'
-          />
-          <Card.Header>Steve Sanders</Card.Header>
-          <Card.Meta>Friends of Elliot</Card.Meta>
-          <Card.Description>
-            Steve wants to add you to the group <strong>best friends</strong>
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <div className='ui two buttons'>
-            <Button basic color='green'>
-              Approve
-            </Button>
-            <Button basic color='red'>
-              Decline
-            </Button>
-          </div>
-        </Card.Content>
-      </Card>
-      <Card>
-        <Card.Content>
-          <Image
-            floated='right'
-            size='mini'
-            src='/images/avatar/large/molly.png'
-          />
-          <Card.Header>Molly Thomas</Card.Header>
-          <Card.Meta>New User</Card.Meta>
-          <Card.Description>
-            Molly wants to add you to the group <strong>musicians</strong>
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <div className='ui two buttons'>
-            <Button basic color='green'>
-              Approve
-            </Button>
-            <Button basic color='red'>
-              Decline
-            </Button>
-          </div>
-        </Card.Content>
-      </Card>
-      <Card>
-        <Card.Content>
-          <Image
-            floated='right'
-            size='mini'
-            src='/images/avatar/large/jenny.jpg'
-          />
-          <Card.Header>Jenny Lawrence</Card.Header>
-          <Card.Meta>New User</Card.Meta>
-          <Card.Description>
-            Jenny requested permission to view your contact details
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <div className='ui two buttons'>
-            <Button basic color='green'>
-              Approve
-            </Button>
-            <Button basic color='red'>
-              Decline
-            </Button>
-          </div>
-        </Card.Content>
-      </Card>
-    </Card.Group>
-  </Container>
-);
+const Dashboard = () => {
+  const dispatch = useDispatch();
+
+  //data
+  const charactersState = useSelector(state => characterListStateSelector(state));
+  const characters = useSelector((state => characterListSelector(state)));
+
+  useEffect(() => {
+    dispatch(listFetch({ page: 1 }))
+  }, [dispatch])
+
+  const onPageChange = (e, { activePage }) => {
+    dispatch(listFetch({ page: activePage }))
+  }
+
+  return (
+    <Container>
+      <Card.Group itemsPerRow={5} textAlign={'center'}>
+        {charactersState.isLoading
+          ? (
+            <>
+              <CharacterCardPlaceholder />
+              <CharacterCardPlaceholder />
+              <CharacterCardPlaceholder />
+              <CharacterCardPlaceholder />
+              <CharacterCardPlaceholder />
+              <CharacterCardPlaceholder />
+              <CharacterCardPlaceholder />
+              <CharacterCardPlaceholder />
+            </>
+          )
+          : characters.map((item => (
+            <CharacterCard id={item.id}/>
+          )))
+        }
+      </Card.Group>
+      <Segment basic textAlign={'center'}>
+        <Pagination onPageChange={onPageChange} totalPages={Math.ceil(charactersState?.meta?.total / 10)} />
+      </Segment>
+    </Container>
+  );
+};
 
 export default Dashboard;

@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
 const Api$ = (options) => {
-  const url = `https://swapi.dev/api/${options.path}`;
+  const url = `https://swapi.dev/api${options.path}`;
   const query = options.params || {};
   return ajax({
     url: QS.stringifyUrl({ url, query }),

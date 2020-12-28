@@ -1,10 +1,8 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { take, unionBy } from 'lodash-es';
 import { dbIdSelector } from './database';
 
 const DEFAULT_LIST_STATE = {
   isLoading: false,
-  fetchingMore: false,
   hasError: false,
   data: [],
   meta: {}
@@ -21,26 +19,21 @@ export const CharacterSlice = createSlice({
   initialState,
   reducers: {
     listFetch: (state, action) => {
-      const { isClearing, isReFetch } = action.payload;
       const oldState = state.list;
-      const oldData = isReFetch ? [] : isClearing ? take(oldState?.data, 20) : oldState.data;
       state.list = {
         ...oldState,
-        data: oldData,
-        isLoading: isClearing || isReFetch,
-        fetchingMore: !isClearing && !isReFetch
+        data: [],
+        isLoading: true,
       };
     },
     listSuccess: (state, action) => {
       const { data, meta } = action.payload;
       const characters = data || [];
-      const oldMaterials = state.list?.data || [];
       state.list = {
         ...state.list,
-        data: unionBy(oldMaterials, characters, 'id'),
+        data: characters,
         meta,
         isLoading: false,
-        fetchingMore: false,
         hasError: false
       };
     },
@@ -50,7 +43,6 @@ export const CharacterSlice = createSlice({
         ...state.list,
         meta,
         isLoading: false,
-        fetchingMore: false,
         hasError: true,
         error
       };

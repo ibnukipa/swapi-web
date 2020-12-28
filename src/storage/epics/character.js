@@ -13,8 +13,7 @@ export const fetchCharactersEpic = (action$, state$) =>
       const page = payload?.page || 1;
       return getCharacters$({
         additionalParams: {
-          storeId: payload?.storeId,
-          keyword: payload?.keyword,
+          search: payload?.search,
           page
         }
       }, state$).pipe(
@@ -24,7 +23,8 @@ export const fetchCharactersEpic = (action$, state$) =>
             listSuccess({
               meta: {
                 page,
-                hasNext: !!response.next
+                hasNext: !!response.next,
+                total: response.count,
               },
               data: response?.results?.map(item => ({ id: getIdFromUrls(item.url) }))
             })
