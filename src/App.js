@@ -1,20 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
+// @flow
+
 import 'semantic-ui-css/semantic.min.css';
-import { Button } from 'semantic-ui-react';
+import './App.css';
+import RouteRoot from './routes/RouteRoot';
 
 function App() {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Button>Click Here</Button>
-      </header>
-    </div>
-  );
+  return <RouteRoot />;
 }
 
 export default App;

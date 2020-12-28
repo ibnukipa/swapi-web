@@ -7,8 +7,5 @@
 [lints]
 
 [options]
-module.name_mapper='^components\(\/?.*\)$' -> '<PROJECT_ROOT>/src/components/\1'
-module.name_mapper='^pages\(\/?.*\)$' -> '<PROJECT_ROOT>/src/pages/\1'
-module.name_mapper='^routes\(\/?.*\)$' -> '<PROJECT_ROOT>/src/routes/\1'
 
 [strict]
