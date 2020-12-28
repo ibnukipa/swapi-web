@@ -4,6 +4,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Error404 from '../pages/error/Error404';
 import Dashboard from '../pages/Dashboard';
+import CharacterDetail from '../pages/character/CharacterDetail';
 import { TopMenu } from '../components/TopMenu';
 
 const RouteRoot = (props) => {
@@ -11,6 +12,9 @@ const RouteRoot = (props) => {
     <BrowserRouter {...props}>
       <TopMenu/>
       <Switch>
+        <Route path='/character/:id'>
+          <CharacterDetail />
+        </Route>
         <Route path='/dashboard'>
           <Dashboard />
         </Route>
